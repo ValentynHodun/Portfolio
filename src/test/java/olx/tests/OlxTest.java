@@ -4,9 +4,11 @@ import base.tests.BasicTest;
 import olx.pages.AddNewAdvertisementPage;
 import olx.pages.HomePage;
 import olx.pages.MyAccountPage;
+import olx.pages.SearchPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.PropertyLoader;
+import utils.TestLogger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,6 +19,7 @@ public class OlxTest extends BasicTest {
     public static final String PASSWORD = PropertyLoader.loadProperty("password");
 
     HomePage home;
+    SearchPage searchPage;
     MyAccountPage myAccountPage;
     AddNewAdvertisementPage addNewAdvertisementPage;
 
@@ -63,9 +66,21 @@ public class OlxTest extends BasicTest {
         Assert.assertTrue(myAccountPage.isSuccessRegisterNEwCustomer(), "New account not register");
     }
 
+    public void searchTest(){
+        gotoPage("https://www.olx.ua/");
+        searchPage.selectElectronicProductType();
+        searchPage.selectPhonesProductCategory();
+        searchPage.closeGeoPopupIfItExist();
+        searchPage.inputMaxPrice("300");
+        searchPage.clickSearchButton();
+        searchPage.getSearchResultsItemsCount();
+        Assert.assertTrue(searchPage.getFirstItemPrice() <= 300);
+    }
+
     @Override
     public void initPages() {
         home = new HomePage(driver);
+        searchPage = new SearchPage(driver);
         myAccountPage = new MyAccountPage(driver);
         addNewAdvertisementPage = new AddNewAdvertisementPage(driver);
     }
