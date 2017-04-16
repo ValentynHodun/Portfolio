@@ -5,6 +5,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.testng.Assert;
 import utils.TestLogger;
 
 public class HomePage extends BasePage {
@@ -38,14 +39,26 @@ public class HomePage extends BasePage {
     }
 
     public void inputSearchField(String search){
-        SEARCH_FIELD.sendKeys(search);
+        try {
+            SEARCH_FIELD.sendKeys(search);
+        }catch (Exception e){
+            Assert.assertTrue(false, "While input text to search field, occur error\n" + e.getMessage());
+        }
     }
 
     public void clickSearchButton(){
-        SEARCH_BUTTON.click();
+        try {
+            SEARCH_BUTTON.click();
+        }catch(Exception e){
+            Assert.assertTrue(false, "Can't click Search button, occur error\n" + e.getMessage());
+        }
     }
 
     public void clickPostAd() {
-        POST_AD.click();
+        try {
+            POST_AD.click();
+        }catch(Exception e){
+            Assert.assertTrue(false, "Can't click Post advertisement, occur error\n" + e.getMessage());
+        }
     }
 }
