@@ -66,15 +66,14 @@ public class OlxTest extends BasicTest {
         Assert.assertTrue(myAccountPage.isSuccessRegisterNEwCustomer(), "New account not register");
     }
 
+    @Test
     public void searchTest(){
         gotoPage("https://www.olx.ua/");
         searchPage.selectElectronicProductType();
         searchPage.selectPhonesProductCategory();
-        searchPage.closeGeoPopupIfItExist();
-        searchPage.inputMaxPrice("300");
+        searchPage.selectFirstGeoLocation();
         searchPage.clickSearchButton();
-        searchPage.getSearchResultsItemsCount();
-        Assert.assertTrue(searchPage.getFirstItemPrice() <= 300);
+        Assert.assertFalse(searchPage.getSearchResultsItemsCount() == 0, "Search results list is empty");
     }
 
     @Override

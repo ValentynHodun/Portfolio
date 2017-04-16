@@ -24,8 +24,8 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//*[@id='geo-suggestions']")
     private WebElement GEO_POPUP;
 
-    @FindBy(xpath = "//span[@data-default-label='Цена до']")
-    private WebElement MAX_PRICE_INPUT_FIELD;
+    @FindBy(xpath = "//*[@id='geo-suggestions-options']/a[1]")
+    private WebElement GEO_POPUP_KIEV_LOCATION;
 
     @FindBy(xpath = "//*[@id='search-submit']")
     private WebElement SEARCH_SUBMIT_BUTTON;
@@ -47,7 +47,7 @@ public class SearchPage extends BasePage {
         try{
             ELECTRONIC_PRODUCT_TYPE.click();
         }catch(Exception e){
-            Assert.assertTrue(false, "Can't select Electronic product type, occu error\n" + e.getMessage());
+            Assert.assertTrue(false, "Can't select Electronic product type, occur error\n" + e.getMessage());
         }
     }
 
@@ -57,24 +57,13 @@ public class SearchPage extends BasePage {
         }catch (Exception e){
             Assert.assertTrue(false, "Can't select Phone and accessories category, occur error\n" + e.getMessage());
         }
-
     }
 
-    public void inputMaxPrice(String price){
+    public void selectFirstGeoLocation(){
         try{
-            MAX_PRICE_INPUT_FIELD.sendKeys(price);
+            GEO_POPUP_KIEV_LOCATION.click();
         }catch (Exception e){
-            Assert.assertTrue(false, "Can't input price to Max price field, occur error\n" + e.getMessage());
-        }
-    }
-
-    public void closeGeoPopupIfItExist(){
-        try{
-            if (GEO_POPUP.isDisplayed()){
-                CLOSE_GEO_POPUP.click();
-            }
-        }catch (Exception e){
-            Assert.assertTrue(false, "Can't close Geo popup, occur error\n" + e.getMessage());
+            Assert.assertTrue(false, "Can't select geo location, occur error\n" + e.getMessage());
         }
     }
 
@@ -97,14 +86,4 @@ public class SearchPage extends BasePage {
         return 0;
     }
 
-    public int getFirstItemPrice(){
-        try {
-            String price = SEARCH_RESULT_LIST.get(0).findElement(By.xpath(ITEM_PRICE)).getText().split(" ")[0];
-            int result = Integer.parseInt(price);
-            return result;
-        }catch (Exception e){
-            Assert.assertTrue(false, "Can't click Search button, occur error\n" + e.getMessage());
-        }
-        return 0;
-    }
 }
