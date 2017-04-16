@@ -100,9 +100,11 @@ public class TestListener extends TestListenerAdapter {
         testLog.add("<br><strong>CAUSED BY:</strong><br>");
         testLog.add("<hr></hr>");
         testLog.addAll(getErrorLog());
-        testLog.add("<br>WARNING(S):");
-        testLog.add("<hr></hr>");
-        testLog.addAll(getWarningLog());
+        if (getWarningLog().size() > 0){
+            testLog.add("<br>WARNING(S):");
+            testLog.add("<hr></hr>");
+            testLog.addAll(getWarningLog());
+        }
         StringBuilder content = new StringBuilder();
         testLog.forEach(string -> content.append(string));
 
