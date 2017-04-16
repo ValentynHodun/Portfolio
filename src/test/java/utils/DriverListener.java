@@ -22,6 +22,7 @@ public class DriverListener implements WebDriverEventListener {
     private long interval;
     private final int count;
     private final String color;
+    private String currentUrl;
 
     public static ArrayList<String> errorTrace = new ArrayList<>();
     public static Field[] LAST_PUBLIC_FIELDS;
@@ -110,6 +111,7 @@ public class DriverListener implements WebDriverEventListener {
     }
 
     public void beforeNavigateTo(String s, WebDriver webDriver) {
+        TestLogger.info("Go to page " + s);
     }
 
     public static String getOS() {
@@ -153,6 +155,7 @@ public class DriverListener implements WebDriverEventListener {
     }
 
     public void beforeClickOn(WebElement webElement, WebDriver webDriver) {
+        currentUrl = webDriver.getCurrentUrl();
         flash(webElement);
         if (webElement.getText().length() == 0) {
             TestLogger.info("Click on " + getWebElementName(webElement));
@@ -162,6 +165,9 @@ public class DriverListener implements WebDriverEventListener {
     }
 
     public void afterClickOn(WebElement webElement, WebDriver webDriver) {
+        if (!webDriver.getCurrentUrl().equals(currentUrl)){
+            TestLogger.info("Redirect to " + webDriver.getCurrentUrl());
+        }
     }
 
     public void beforeChangeValueOf(WebElement webElement, WebDriver webDriver) {
