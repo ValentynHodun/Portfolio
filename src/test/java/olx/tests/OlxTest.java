@@ -8,6 +8,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.PropertyLoader;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class OlxTest extends BasicTest {
 
     public static final String EMAIL = PropertyLoader.loadProperty("email");
@@ -17,9 +20,14 @@ public class OlxTest extends BasicTest {
     MyAccountPage myAccountPage;
     AddNewAdvertisementPage addNewAdvertisementPage;
 
+    private String generateEmail() {
+        String emailTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        return emailTime + "@ukr.net";
+    }
+
     @Test
     public void postNewAd() {
-        gotoPage("https://www.olx.ua/");        
+        gotoPage("https://www.olx.ua/");
         home.clickPostAd();
         home.closeCookiesPopup();
         myAccountPage.inputEmail(EMAIL);
@@ -39,6 +47,20 @@ public class OlxTest extends BasicTest {
         addNewAdvertisementPage.inputLocation("Киев", "Киев, Киевская область");
         addNewAdvertisementPage.clickReview();
         Assert.assertTrue(addNewAdvertisementPage.reviewPopup(), "Reviews not display!");
+    }
+
+    @Test
+    public void registerNewCustomer(){
+        gotoPage("https://www.olx.ua/");
+        home.closeCookiesPopup();
+        home.clickPostAd();
+        myAccountPage.clickRegisterNewCustomerTab();
+        String email = generateEmail();
+        myAccountPage.inputEmailNewCustomer(email);
+        myAccountPage.inputPasswordNewCustomer(PASSWORD);
+        myAccountPage.clickCheckAcceptCheckbox();
+        myAccountPage.clickRegisterNewCustomerButton();
+        Assert.assertTrue(myAccountPage.isSuccessRegisterNEwCustomer(), "New account not register");
     }
 
     @Override

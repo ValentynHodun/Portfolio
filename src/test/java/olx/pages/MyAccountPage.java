@@ -4,6 +4,7 @@ import base.page.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.testng.Assert;
 
 public class MyAccountPage extends BasePage {
 
@@ -34,37 +35,90 @@ public class MyAccountPage extends BasePage {
     @FindBy(xpath = "//*[@id='se_userLogin']")
     private WebElement LOGIN_BUTTON;
 
+    @FindBy(xpath = "//strong[contains(text(), 'Сейчас')]")
+    private WebElement SUCCESS_MESSAGE;
+
     public MyAccountPage(EventFiringWebDriver driver) {
         super(driver);
     }
     /*Register New Customer*/
-    public void inputEmailNewCustome(String email){
-        EMAIL_FIELD_REGISTER_NEW_CUSTOMER.sendKeys(email);
+    public void inputEmailNewCustomer(String email){
+        try {
+            EMAIL_FIELD_REGISTER_NEW_CUSTOMER.sendKeys(email);
+        }catch (Exception e){
+            Assert.assertTrue(false, "While input text to email field, occur error\n" + e.getMessage());
+        }
     }
 
     public void inputPasswordNewCustomer(String password){
-        PASSWORD_FIELD_REGISTER_NEW_CUSTOMER.sendKeys(password);
+        try {
+            PASSWORD_FIELD_REGISTER_NEW_CUSTOMER.sendKeys(password);
+        }catch (Exception e){
+            Assert.assertTrue(false, "While input text to password field, occur error\n" + e.getMessage());
+        }
     }
 
-    public void checkAcceptCheckbox(){
-        CONFIRM_CHECKBOX_REGISTER_NEW_CUSTOMER.click();
+    public void clickCheckAcceptCheckbox(){
+        try {
+            CONFIRM_CHECKBOX_REGISTER_NEW_CUSTOMER.click();
+        }catch (Exception e){
+            Assert.assertTrue(false, "While click in 'Confirm' checkbox, occur error\n" + e.getMessage());
+        }
     }
 
     public void clickRegisterNewCustomerButton(){
-        REGISTER_NEW_CUSTOMER_BUTTON.click();
+        try {
+            REGISTER_NEW_CUSTOMER_BUTTON.click();
+        } catch (Exception e){
+            Assert.assertTrue(false, "While click in 'Register new Customer' button, occur error\n" + e.getMessage());
+        }
+    }
+
+    public boolean isSuccessRegisterNEwCustomer(){
+        waitForElement(SUCCESS_MESSAGE);
+        return SUCCESS_MESSAGE.isDisplayed();
+    }
+
+    public void clickRegisterNewCustomerTab(){
+        waitForElement(REGISTER_CUSTOMER_TAB);
+        try {
+            REGISTER_CUSTOMER_TAB.click();
+        }catch (Exception e){
+            Assert.assertTrue(false, "While click in 'Register new Customer' tab, occur error\n" + e.getMessage());
+        }
     }
 
     /*Sign in*/
     public void inputEmail(String email) {
         waitForElement(EMAIL_FIELD);
-        EMAIL_FIELD.sendKeys(email);
+        try {
+            EMAIL_FIELD.sendKeys(email);
+        }catch (Exception e){
+            Assert.assertTrue(false, "While input text to email field, occur error\n" + e.getMessage());
+        }
     }
 
     public void inputPassword(String password) {
-        PASSWORD_FIELD.sendKeys(password);
+        try {
+            PASSWORD_FIELD.sendKeys(password);
+        }catch (Exception e){
+            Assert.assertTrue(false, "While input text to password field, occur error\n" + e.getMessage());
+        }
     }
 
     public void clickLogInButton() {
-        LOGIN_BUTTON.click();
+        try {
+            LOGIN_BUTTON.click();
+        } catch (Exception e){
+            Assert.assertTrue(false, "While click in 'Log in' button, occur error\n" + e.getMessage());
+        }
+    }
+
+    public void clickLoginTab(){
+        try {
+            SIGN_IN_TAB.click();
+        }catch (Exception e){
+            Assert.assertTrue(false, "While click in 'Log in' tab, occur error\n" + e.getMessage());
+        }
     }
 }
