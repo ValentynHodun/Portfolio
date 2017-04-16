@@ -106,12 +106,7 @@ public class DriverListener implements WebDriverEventListener {
     private void flash(WebElement element) {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("scrollTo(0, " + (element.getLocation()
-                .getY() - driver.manage().window().getSize().getHeight() / 2) + ")"); //Super scroll
-        String bgcolor = element.getCssValue("backgroundColor");
-        for (int i = 0; i < count; i++) {
-            changeColor(color, element, js);
-            changeColor(bgcolor, element, js);
-        }
+                .getY() - driver.manage().window().getSize().getHeight() / 2) + ")");
     }
 
     public void beforeNavigateTo(String s, WebDriver webDriver) {

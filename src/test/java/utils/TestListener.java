@@ -14,6 +14,7 @@ import java.util.Date;
 import static base.tests.BasicTest.driver;
 import static utils.DriverListener.*;
 import static utils.TestLogger.*;
+import static utils.TestLogger.getWarningLog;
 
 public class TestListener extends TestListenerAdapter {
     public static ArrayList<File> screenNamesList = new ArrayList<>();
@@ -99,6 +100,9 @@ public class TestListener extends TestListenerAdapter {
         testLog.add("<br><strong>CAUSED BY:</strong><br>");
         testLog.add("<hr></hr>");
         testLog.addAll(getErrorLog());
+        testLog.add("<br>WARNING(S):");
+        testLog.add("<hr></hr>");
+        testLog.addAll(getWarningLog());
         StringBuilder content = new StringBuilder();
         testLog.forEach(string -> content.append(string));
 
