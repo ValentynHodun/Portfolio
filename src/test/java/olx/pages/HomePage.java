@@ -28,9 +28,9 @@ public class HomePage extends BasePage {
 
     public void closeCookiesPopup() {
         if (CLOSE_COOKIES_POPUP.isDisplayed()) {
-            try{
+            try {
                 CLOSE_COOKIES_POPUP.click();
-            }catch (StaleElementReferenceException e){
+            } catch (StaleElementReferenceException e) {
                 TestLogger.info("Can't close cookies popup");
                 TestLogger.warning("closeCookiesPopup method throw StaleElementReferenceException:\n"
                         + e.getMessage());
@@ -38,18 +38,18 @@ public class HomePage extends BasePage {
         }
     }
 
-    public void inputSearchField(String search){
+    public void inputSearchField(String search) {
         try {
             SEARCH_FIELD.sendKeys(search);
-        }catch (Exception e){
+        } catch (Exception e) {
             Assert.assertTrue(false, "While input text to search field, occur error\n" + e.getMessage());
         }
     }
 
-    public void clickSearchButton(){
+    public void clickSearchButton() {
         try {
             SEARCH_BUTTON.click();
-        }catch(Exception e){
+        } catch (Exception e) {
             Assert.assertTrue(false, "Can't click Search button, occur error\n" + e.getMessage());
         }
     }
@@ -57,7 +57,7 @@ public class HomePage extends BasePage {
     public void clickPostAd() {
         try {
             POST_AD.click();
-        }catch(Exception e){
+        } catch (Exception e) {
             Assert.assertTrue(false, "Can't click Post advertisement, occur error\n" + e.getMessage());
         }
     }

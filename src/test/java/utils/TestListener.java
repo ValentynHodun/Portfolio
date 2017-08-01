@@ -23,11 +23,11 @@ public class TestListener extends TestListenerAdapter {
     public static void screenForTestFailure() {
         String filePath = "";
         date = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss ").format(new Date());
-        if (System.getProperty("os.name").equals("Linux")){
+        if (System.getProperty("os.name").equals("Linux")) {
             filePath = "/home/geser/IdeaProjects/Automation/Screenshot/" + TEST_CLASS + "/"
                     + date + TEST_NAME + ".png";
         }
-        if (System.getProperty("os.name").contains("Windows")){
+        if (System.getProperty("os.name").contains("Windows")) {
             filePath = "C:\\Automation\\Screenshot\\" + TEST_CLASS + "\\"
                     + date + TEST_NAME + ".png";
         }
@@ -100,7 +100,7 @@ public class TestListener extends TestListenerAdapter {
         testLog.add("<br><strong>CAUSED BY:</strong><br>");
         testLog.add("<hr></hr>");
         testLog.addAll(getErrorLog());
-        if (getWarningLog().size() > 0){
+        if (getWarningLog().size() > 0) {
             testLog.add("<br>WARNING(S):");
             testLog.add("<hr></hr>");
             testLog.addAll(getWarningLog());
@@ -130,7 +130,7 @@ public class TestListener extends TestListenerAdapter {
             rec.add("s.konoplyaniy@gmail.com");
             rec.add("g_v_s2005@ukr.net");
             email.execute(rec, subjectMessage, content, screenFiles);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("can't send email  \n" + e.getMessage());
         }

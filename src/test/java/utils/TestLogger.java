@@ -8,12 +8,16 @@ import java.util.ArrayList;
 import static base.tests.BasicTest.testStepCount;
 
 public class TestLogger {
+    private static final Logger LOGGER = Logger.getLogger(TestLogger.class);
+    private static final String INFO_LOG = "INFO: %s";
+    private static final String ERROR_LOG = "ERROR: %s !";
+    private static final String WARN_LOG = "WARING: %s !";
     private static ArrayList<String> errorLog;
     private static ArrayList<String> infoLog;
     private static ArrayList<String> headerLog;
     private static ArrayList<String> warningLog;
 
-    public static void resetLogLists(){
+    public static void resetLogLists() {
         headerLog = new ArrayList<>();
         infoLog = new ArrayList<>();
         errorLog = new ArrayList<>();
@@ -36,15 +40,10 @@ public class TestLogger {
         return warningLog;
     }
 
-    private static final Logger LOGGER = Logger.getLogger(TestLogger.class);
-    private static final String INFO_LOG = "INFO: %s";
-    private static final String ERROR_LOG = "ERROR: %s !";
-    private static final String WARN_LOG = "WARING: %s !";
-
-    public static String header(String message){
+    public static String header(String message) {
         LOGGER.info(String.format(INFO_LOG, message));
         Reporter.log(String.format(INFO_LOG, message));
-        headerLog.add(message  + "\n");
+        headerLog.add(message + "\n");
         return String.format(INFO_LOG, message);
     }
 
@@ -63,10 +62,10 @@ public class TestLogger {
         return String.format(ERROR_LOG, message);
     }
 
-    public static String warning(String message){
+    public static String warning(String message) {
         LOGGER.info(String.format(WARN_LOG, message));
         Reporter.log(String.format(WARN_LOG, message));
-        warningLog.add(message  + "\n");
+        warningLog.add(message + "\n");
         return String.format(WARN_LOG, message);
     }
 }

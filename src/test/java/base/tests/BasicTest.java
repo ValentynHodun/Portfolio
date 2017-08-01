@@ -25,10 +25,10 @@ public abstract class BasicTest {
      */
     @BeforeSuite
     public void initEnvironment() {
-        if (System.getProperty("os.name").equals("Linux")){
+        if (System.getProperty("os.name").equals("Linux")) {
             System.setProperty("webdriver.chrome.driver", "/home/geser/IdeaProjects/chromedriver"); //Chrome driver linux
         }
-        if (System.getProperty("os.name").contains("Windows")){
+        if (System.getProperty("os.name").contains("Windows")) {
             System.setProperty("webdriver.chrome.driver", "C:\\Automation\\chromedriver\\chromedriver.exe"); //Chrome driver windows
         }
         WebDriver webDriver = new ChromeDriver();

@@ -53,7 +53,7 @@ public class OlxTest extends BasicTest {
     }
 
     @Test
-    public void registerNewCustomer(){
+    public void registerNewCustomer() {
         gotoPage("https://www.olx.ua/");
         home.closeCookiesPopup();
         home.clickPostAd();
@@ -67,7 +67,7 @@ public class OlxTest extends BasicTest {
     }
 
     @Test
-    public void searchTest(){
+    public void searchTest() {
         gotoPage("https://www.olx.ua/");
         searchPage.selectElectronicProductType();
         searchPage.selectPhonesProductCategory();

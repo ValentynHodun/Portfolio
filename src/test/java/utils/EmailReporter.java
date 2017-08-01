@@ -23,8 +23,8 @@ public class EmailReporter {
                                ArrayList<File> screenFiles) throws Exception {
 
         ArrayList<File> fileList = screenFiles;
-        String[] to= new String[recipients.size()];
-                to = recipients.toArray(to);
+        String[] to = new String[recipients.size()];
+        to = recipients.toArray(to);
 
         EmailReporter.sendMail(
                 "testobjectsdream@gmail.com",
@@ -44,19 +44,19 @@ public class EmailReporter {
     }
 
     public static boolean sendMail(
-                                   String userName,
-                                   String passWord,
-                                   String host,
-                                   String port,
-                                   String starttls,
-                                   String auth,
-                                   boolean debug,
-                                   String socketFactoryClass,
-                                   String fallback,
-                                   String[] to,
-                                   String subject,
-                                   String text,
-                                   ArrayList<File> fileList) {
+            String userName,
+            String passWord,
+            String host,
+            String port,
+            String starttls,
+            String auth,
+            boolean debug,
+            String socketFactoryClass,
+            String fallback,
+            String[] to,
+            String subject,
+            String text,
+            ArrayList<File> fileList) {
 
 //Object Instantiation of a properties file.
         Properties props = new Properties();

@@ -19,23 +19,51 @@ import java.util.concurrent.TimeUnit;
 import static base.tests.BasicTest.driver;
 
 public class DriverListener implements WebDriverEventListener {
-    private long interval;
-    private final int count;
-    private final String color;
-    private String currentUrl;
-
     public static ArrayList<String> errorTrace = new ArrayList<>();
     public static Field[] LAST_PUBLIC_FIELDS;
     public static String PC_NAME = "";
     public static String OS = "";
     public static String TEST_NAME = "";
     public static String TEST_CLASS = "";
+    private final int count;
+    private final String color;
+    private long interval;
+    private String currentUrl;
 
     public DriverListener(String color, int count, long interval, TimeUnit unit) {
         this.color = color;
         this.count = count;
         this.interval = TimeUnit.MILLISECONDS.convert(Math.max(0, interval), unit);
     }
+
+    public static String getOS() {
+        return System.getProperty("os.name");
+    }
+
+    public static String getPcName() {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+/*    *//**
+     * Method for paint element
+     *
+     * @param color   -  String color
+     * @param element - Current WebElement
+     * @param js      - JS executor
+     *//*
+    private void changeColor(String color, WebElement element, JavascriptExecutor js) {
+        js.executeScript("arguments[0].style.backgroundColor = '" + color + "'", element);
+        try {
+            Thread.sleep(interval);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }*/
 
     /**
      * Method for getting class from StackTrace
@@ -84,22 +112,6 @@ public class DriverListener implements WebDriverEventListener {
     }
 
     /**
-     * Method for paint element
-     *
-     * @param color   -  String color
-     * @param element - Current WebElement
-     * @param js      - JS executor
-     */
-    private void changeColor(String color, WebElement element, JavascriptExecutor js) {
-        js.executeScript("arguments[0].style.backgroundColor = '" + color + "'", element);
-        try {
-            Thread.sleep(interval);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Method for light click
      *
      * @param element - get WebElement for light up
@@ -112,19 +124,6 @@ public class DriverListener implements WebDriverEventListener {
 
     public void beforeNavigateTo(String s, WebDriver webDriver) {
         TestLogger.info("Go to page " + s);
-    }
-
-    public static String getOS() {
-        return System.getProperty("os.name");
-    }
-
-    public static String getPcName() {
-        try {
-            return InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            return "";
-        }
     }
 
     public void afterNavigateTo(String s, WebDriver webDriver) {
@@ -165,7 +164,7 @@ public class DriverListener implements WebDriverEventListener {
     }
 
     public void afterClickOn(WebElement webElement, WebDriver webDriver) {
-        if (!webDriver.getCurrentUrl().equals(currentUrl)){
+        if (!webDriver.getCurrentUrl().equals(currentUrl)) {
             TestLogger.info("Redirect to " + webDriver.getCurrentUrl());
         }
     }
