@@ -3,6 +3,8 @@ package base.tests;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -25,13 +27,21 @@ public abstract class BasicTest {
      */
     @BeforeSuite
     public void initEnvironment() {
+
         if (System.getProperty("os.name").equals("Linux")) {
             System.setProperty("webdriver.chrome.driver", "/home/geser/IdeaProjects/chromedriver"); //Chrome driver linux
         }
         if (System.getProperty("os.name").contains("Windows")) {
             System.setProperty("webdriver.chrome.driver", "C:\\Automation\\chromedriver\\chromedriver.exe"); //Chrome driver windows
         }
-        WebDriver webDriver = new ChromeDriver();
+
+        ChromeOptions co = new ChromeOptions();
+        co.addArguments("--window-size=1920,1080"); //display dimension
+        co.addArguments("--headless");
+        DesiredCapabilities cap = DesiredCapabilities.chrome();
+        cap.setCapability(ChromeOptions.CAPABILITY, co);
+        WebDriver webDriver = new ChromeDriver(cap);
+
         driver = new EventFiringWebDriver(webDriver);
         driver.register(new DriverListener("#FFFF00 ", 1, 1, TimeUnit.MILLISECONDS));
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
